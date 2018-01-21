@@ -8,6 +8,7 @@ if [ "${LETSENCRYPT_EMAIL}" ]; then
         if [ "${host}" ] && [ ! -d "/config/letsencrypt/live/${host}" ]; then
             minfo "Register /config/letsencrypt/live/${host}"
             certbot --config /etc/letsencrypt/cli.ini certonly -d ${host}
+            openssl dhparam -dsaparam -out "/config/letsencrypt/live/${host}/dhparam.pem" 4096
         fi
     done < "${HOSTS}"
 fi
